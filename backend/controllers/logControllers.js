@@ -242,13 +242,6 @@ const filterLogs = (req, res) => {
         // Start filtering
         let filteredLogs = logsData;
 
-        // Filter by level (supports comma-separated levels like error,info)
-        // if (level) {
-        //     const levels = level.toLowerCase().split(',').map(l => l.trim());
-        //     filteredLogs = filteredLogs.filter(log =>
-        //         levels.includes(log.level.toLowerCase())
-        //     );
-        // }
         if (level) {
             filteredLogs = filteredLogs.filter(log =>
                 log.level?.toLowerCase().includes(level.toLowerCase())
