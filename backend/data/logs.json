@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1751608951364,
+    "level": "error",
+    "message": "Failed to connect to database",
+    "resourceId": "server-1234",
+    "timestamp": "2025-07-04T06:02:31.364Z",
+    "traceId": "trace-001",
+    "spanId": "span-001",
+    "commit": "abc123"
+  },
+  {
+    "id": 1751608953674,
+    "level": "error",
+    "message": "Failed to connect to",
+    "resourceId": "server-1234",
+    "timestamp": "2025-07-04T06:02:33.674Z",
+    "traceId": "trace-001",
+    "spanId": "span-001",
+    "commit": "abc123"
+  },
+  {
+    "id": 1751611865467,
+    "level": "error",
+    "message": "Failed to connect to database",
+    "resourceId": "server-1234",
+    "timestamp": "2025-07-04T06:51:05.467Z",
+    "traceId": "trace-001",
+    "spanId": "span-001",
+    "commit": "abc123"
+  }
+]
