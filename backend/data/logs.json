@@ -1,35 +1,5 @@
 [
   {
-    "id": 1751608951364,
-    "level": "error",
-    "message": "database",
-    "resourceId": "server-1234",
-    "timestamp": "2025-07-04T06:02:31.364Z",
-    "traceId": "trace-001",
-    "spanId": "span-001",
-    "commit": "abc123"
-  },
-  {
-    "id": 1751608953674,
-    "level": "info",
-    "message": "npm",
-    "resourceId": "server-1234",
-    "timestamp": "2025-07-04T06:02:33.674Z",
-    "traceId": "trace-001",
-    "spanId": "span-001",
-    "commit": "abc123"
-  },
-  {
-    "id": 1751611865467,
-    "level": "warn",
-    "message": "connect",
-    "resourceId": "server-1234",
-    "timestamp": "2025-07-04T06:51:05.467Z",
-    "traceId": "trace-001",
-    "spanId": "span-001",
-    "commit": "abc123"
-  },
-  {
     "id": 1751694528250,
     "level": "info",
     "message": "User logged in successfully",
@@ -46,40 +16,39 @@
   {
     "id": 1751695673313,
     "level": "debug",
-    "message": "deeuigdugweidu",
-    "resourceId": "server-123",
+    "message": "Cache refreshed for recent activity",
+    "resourceId": "cache-05",
     "timestamp": "2025-07-05T06:07:53.313Z",
-    "traceId": "tack-02",
-    "spanId": "span-001",
-    "commit": "commit",
+    "traceId": "trace-002",
+    "spanId": "span-010",
+    "commit": "commit-def456",
     "metadata": {
-      "userId": "user-789",
-      "ip": "192.168.0.1"
+      "cacheKey": "recent_activity",
+      "duration": "45ms"
     }
   },
   {
-    "id": 1751696239412,
+    "id": 1751695987501,
     "level": "warn",
-    "message": "foeqifo",
-    "resourceId": "133",
-    "timestamp": "2025-07-05T06:17:19.412Z",
-    "traceId": "fefwef",
-    "spanId": "wqwq",
-    "commit": "2r1r",
-    "metadata": {}
+    "message": "High memory usage detected on worker-2",
+    "resourceId": "worker-2",
+    "timestamp": "2025-07-05T06:13:07.501Z",
+    "traceId": "trace-003",
+    "spanId": "span-020",
+    "commit": "commit-ghi789"
   },
   {
-    "id": 1751696591981,
+    "id": 1751696124890,
     "level": "error",
-    "message": "hewfiu",
-    "resourceId": "3rrrrr",
-    "timestamp": "2025-07-05T06:23:11.981Z",
-    "traceId": "31r",
-    "spanId": "wfwr",
-    "commit": "qefqefqefqe",
+    "message": "Database connection failed",
+    "resourceId": "db-prod-01",
+    "timestamp": "2025-07-05T06:15:24.890Z",
+    "traceId": "trace-004",
+    "spanId": "span-030",
+    "commit": "commit-jkl012",
     "metadata": {
-      "userId": "user-789",
-      "ip": "192.168.0.1"
+      "dbHost": "prod-db.server.com",
+      "errorCode": "ECONNREFUSED"
     }
   }
 ]

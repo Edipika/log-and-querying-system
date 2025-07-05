@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
+import { useLogContext } from "../context/LogContext";
 
-function Search({ onKeywordChange }) {
+
+function Search() {
+   const { handleKeywordChange } = useLogContext();
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      onKeywordChange(keyword.trim());
+      handleKeywordChange(keyword.trim());
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [keyword, onKeywordChange]);
+  }, [keyword, handleKeywordChange]);
 
   return (
-    <div className="flex flex-wrap gap-4 mb-6">
+    <div className="">
       <input
-        placeholder="Search by Message..."
-        className="border p-2 rounded w-full sm:w-auto"
+        placeholder="🔍Search by Message..."
+        className="px-3 py-2 border bg-white border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#556ee6] text-sm shadow-sm"
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />

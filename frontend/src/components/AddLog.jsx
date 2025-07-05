@@ -8,16 +8,10 @@ function AddLog({ onSuccess, onCancel }) {
   const [spanId, setSpanId] = useState("");
   const [commit, setCommit] = useState("");
   const [metadata, setMetadata] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");  // To hold server error message
+  const [errorMsg, setErrorMsg] = useState("");  
 
   const handleSubmit = () => {
-    setErrorMsg(""); // Clear previous error
-
-    // if (!level || !message || !resourceId || !traceId || !spanId || !commit) {
-    //   setErrorMsg("Please fill all required fields.");
-    //   return;
-    // }
-
+    setErrorMsg(""); 
     let metaObj = {};
     try {
       metaObj = metadata ? JSON.parse(metadata) : {};
@@ -59,7 +53,7 @@ function AddLog({ onSuccess, onCancel }) {
   };
 
   return (
-    <div className="flex flex-wrap gap-4 mb-6 border p-4 rounded shadow">
+    <div className="flex flex-wrap gap-4 mb-6  p-4 rounded shadow">
       {errorMsg && (
         <div className="w-full text-red-500 text-sm mb-2">{errorMsg}</div>
       )}

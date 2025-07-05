@@ -3,47 +3,54 @@ import Filters from "./Filters";
 import Table from "./Table";
 import Search from "./Search";
 import AddLog from "./AddLog";
+import { useLogContext } from "../context/LogContext";
 
 export default function Logs() {
-  const [logs, setLogs] = useState([]);
-  const [showAddLog, setShowAddLog] = useState(false);
-
-  const fetchAllLogs = useCallback(() => {
-    fetch("http://localhost:5000/log/show")
-      .then((res) => res.json())
-      .then((data) => setLogs(data))
-      .catch((err) => console.error("Error fetching logs:", err));
-  }, []);
-
+   const {
+    logs, setShowAddLog, showAddLog,
+    fetchAllLogs, handleKeywordChange, handleFilter
+  } = useLogContext();
+ 
   useEffect(() => {
     fetchAllLogs();
   }, [fetchAllLogs]);
 
-  const handleKeywordChange = useCallback((keyword) => {
-    if (keyword === "") {
-      fetchAllLogs();
-    } else {
-      fetch(`http://localhost:5000/log/search?keyword=${encodeURIComponent(keyword)}`)
-        .then((res) => res.json())
-        .then((data) => setLogs(data))
-        .catch((err) => console.error("Error during search:", err));
-    }
-  }, [fetchAllLogs]);
-
-  const handleFilter = useCallback((filteredData) => {
-    setLogs(filteredData);
-  }, []);
 
   return (
     <div className="min-h-screen bg-white p-4 md:p-8 text-sm text-gray-800 font-sans">
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-6 border-b pb-4">
-        <div className="flex items-center gap-6 text-blue-600 font-semibold">
-          <span className="cursor-pointer">📄 Log Message</span>
+
+      {/* Header with Enhanced Styling */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-6 bg-[#e0e7ff] border border-[#d0d7f7] p-2 rounded-xl shadow-sm">
+
+        <div className="flex items-center gap-3 text-[#556ee6] font-semibold text-lg">
+
+          {/* Icon inside Light Grey Circle */}
+          <span className="cursor-pointer flex items-center gap-2 hover:text-indigo-700 transition">
+            <span className="bg-gray-100 text-gray-700 p-2 rounded-full text-xl">
+              📄
+            </span>
+            <span>Logs</span>
+
+          </span>
+
         </div>
-        <button className="px-4 py-2 bg-[#556ee6] text-white rounded hover:bg-indigo-600 text-sm" onClick={() => setShowAddLog(true)}>
-          Add Log
-        </button> 
+
+
+
+        <div className="flex items-center gap-4">
+            <Search/>
+
+          <button
+            className="px-4 py-2 bg-[#556ee6] text-white rounded-lg hover:bg-indigo-600 text-sm shadow-md transition"
+            onClick={() => setShowAddLog(true)}
+          >
+            + Add Log
+          </button>
+        </div>
+
+
       </div>
+
 
       {showAddLog && (
         <AddLog
@@ -55,9 +62,8 @@ export default function Logs() {
         />
       )}
 
-      <Search onKeywordChange={handleKeywordChange} />
-      <Filters onFilter={handleFilter} />
-      <Table logs={logs} />
+      <Filters />
+      <Table />
     </div>
   );
 }
