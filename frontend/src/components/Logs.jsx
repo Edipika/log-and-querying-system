@@ -2,33 +2,29 @@ import React, { useEffect, useState, useCallback } from "react";
 import Filters from "./Filters";
 import Table from "./Table";
 import Search from "./Search";
+import AddLog from "./AddLog";
 
 export default function Logs() {
   const [logs, setLogs] = useState([]);
-
-  useEffect(() => {
-    fetchAllLogs();
-  }, []);
+  const [showAddLog, setShowAddLog] = useState(false);
 
   const fetchAllLogs = useCallback(() => {
     fetch("http://localhost:5000/log/show")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch logs");
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => setLogs(data))
       .catch((err) => console.error("Error fetching logs:", err));
   }, []);
 
+  useEffect(() => {
+    fetchAllLogs();
+  }, [fetchAllLogs]);
+
   const handleKeywordChange = useCallback((keyword) => {
     if (keyword === "") {
-      fetchAllLogs();  // Clear input, show all logs
+      fetchAllLogs();
     } else {
       fetch(`http://localhost:5000/log/search?keyword=${encodeURIComponent(keyword)}`)
-        .then((res) => {
-          if (!res.ok) throw new Error("Search failed");
-          return res.json();
-        })
+        .then((res) => res.json())
         .then((data) => setLogs(data))
         .catch((err) => console.error("Error during search:", err));
     }
@@ -44,10 +40,20 @@ export default function Logs() {
         <div className="flex items-center gap-6 text-blue-600 font-semibold">
           <span className="cursor-pointer">📄 Log Message</span>
         </div>
-        <button className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-blue-500 text-sm">
+        <button className="px-4 py-2 bg-[#556ee6] text-white rounded hover:bg-indigo-600 text-sm" onClick={() => setShowAddLog(true)}>
           Add Log
-        </button>
+        </button> 
       </div>
+
+      {showAddLog && (
+        <AddLog
+          onSuccess={() => {
+            setShowAddLog(false);
+            fetchAllLogs();
+          }}
+          onCancel={() => setShowAddLog(false)}
+        />
+      )}
 
       <Search onKeywordChange={handleKeywordChange} />
       <Filters onFilter={handleFilter} />
