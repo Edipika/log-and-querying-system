@@ -210,83 +210,97 @@ const searchLogs = (req, res) => {
 };
 
 const filterLogs = (req, res) => {
-    const { level, startTime, endTime, resourceId, keyword } = req.query;
+  const { level, startTime, endTime, resourceId, message } = req.query;
+  
+  console.log("Filter API Input:", {
+    level,
+    startTime,
+    endTime,
+    resourceId,
+    message,
+  });
 
-    let logsData = [];
+  let logsData = [];
 
-    try {
-        if (!fs.existsSync(dataPath)) {
-            return res.status(200).json({
-                message: "No logs found.",
-                data: []
-            });
-        }
-
-        const rawData = fs.readFileSync(dataPath, 'utf-8');
-
-        if (rawData.trim() === '') {
-            return res.status(200).json({
-                message: "Log file is empty.",
-                data: []
-            });
-        }
-
-        logsData = JSON.parse(rawData);
-
-        if (!Array.isArray(logsData)) {
-            return res.status(500).json({
-                message: "Corrupted logs file. Expected an array."
-            });
-        }
-
-        // Start filtering
-        let filteredLogs = logsData;
-
-        if (level) {
-            filteredLogs = filteredLogs.filter(log =>
-                log.level?.toLowerCase().includes(level.toLowerCase())
-            );
-        }
-
-        // Filter by timestamp range
-        if (startTime || endTime) {
-            filteredLogs = filteredLogs.filter(log => {
-                const logTime = new Date(log.timestamp).getTime();
-                const start = startTime ? new Date(startTime).getTime() : null;
-                const end = endTime ? new Date(endTime).getTime() : null;
-
-                if (start && end) return logTime >= start && logTime <= end;
-                if (start) return logTime >= start;
-                if (end) return logTime <= end;
-                return true;
-            });
-        }
-
-        // Filter by resourceId (case-insensitive partial match)
-        if (resourceId) {
-            filteredLogs = filteredLogs.filter(log =>
-                log.resourceId?.toLowerCase().includes(resourceId.toLowerCase())
-            );
-        }
-
-        // Keyword search in message (case-insensitive)
-        if (keyword) {
-            filteredLogs = filteredLogs.filter(log =>
-                log.message?.toLowerCase().includes(keyword.toLowerCase())
-            );
-        }
-
-        return res.status(200).json({
-            count: filteredLogs.length,
-            data: filteredLogs
-        });
-
-    } catch (error) {
-        console.error("Error filtering logs:", error);
-        return res.status(500).json({
-            message: "An error occurred while filtering logs."
-        });
+  try {
+    if (!fs.existsSync(dataPath)) {
+      return res.status(200).json({
+        message: "No logs found.",
+        data: []
+      });
     }
+
+    const rawData = fs.readFileSync(dataPath, 'utf-8');
+
+    if (rawData.trim() === '') {
+      return res.status(200).json({
+        message: "Log file is empty.",
+        data: []
+      });
+    }
+
+    logsData = JSON.parse(rawData);
+
+    if (!Array.isArray(logsData)) {
+      return res.status(500).json({
+        message: "Corrupted logs file. Expected an array."
+      });
+    }
+
+    // Start filtering
+    let filteredLogs = logsData;
+
+    if (level) {
+      filteredLogs = filteredLogs.filter(log =>
+        log.level?.toLowerCase().includes(level.toLowerCase())
+      );
+    }
+
+    // Filter by timestamp range
+    if (startTime || endTime) {
+      filteredLogs = filteredLogs.filter(log => {
+        const logTime = new Date(log.timestamp).getTime();
+        const start = startTime ? new Date(startTime).getTime() : null;
+        const end = endTime ? new Date(endTime).getTime() : null;
+
+        if (start && end) return logTime >= start && logTime <= end;
+        if (start) return logTime >= start;
+        if (end) return logTime <= end;
+        return true;
+      });
+    }
+
+    // Filter by resourceId (case-insensitive partial match)
+    if (resourceId) {
+      filteredLogs = filteredLogs.filter(log =>
+        log.resourceId?.toLowerCase().includes(resourceId.toLowerCase())
+      );
+    }
+
+    // message search in message (case-insensitive)
+    if (message) {
+      filteredLogs = filteredLogs.filter(log =>
+        log.message?.toLowerCase().includes(message.toLowerCase())
+      );
+    }
+
+    console.log("Filter API Response:", {
+      count: filteredLogs.length,
+      data: filteredLogs
+    });
+
+    return res.status(200).json({
+      count: filteredLogs.length,
+      data: filteredLogs
+    });
+    //  return res.status(200).json(filteredLogs);
+
+  } catch (error) {
+    console.error("Error filtering logs:", error);
+    return res.status(500).json({
+      message: "An error occurred while filtering logs."
+    });
+  }
 };
 
 module.exports = {

@@ -8,7 +8,7 @@ export default function Table({ logs }) {
         <div className="col-span-2">Log Info</div>
         <div>Message</div>
         <div>Response</div>
-        <div>Action</div>
+        <div>Meta Data</div>
       </div>
 
      
@@ -16,8 +16,7 @@ export default function Table({ logs }) {
         <div
           key={idx}
           className="grid grid-cols-5 border-b bg-gray-100 border-gray-200 p-3 text-sm items-start"
-        >
-        
+        >        
           <div className="col-span-2 space-y-1 break-all">
             <div className="font-semibold text-black">
               ResourceId: {item.resourceId}
@@ -29,7 +28,7 @@ export default function Table({ logs }) {
               Span Id: <span className="text-blue-600">{item.spanId}</span>
             </div>
             <div className="text-xs text-gray-500">Commit: {item.commit}</div>
-            <div className="text-xs text-gray-500">Log Id: {item.logId}</div>
+            <div className="text-xs text-gray-500">Log Id: {item.id}</div>
           </div>
 
          
@@ -41,11 +40,13 @@ export default function Table({ logs }) {
               Level: {item.level}
             </div>
             <div className="text-xs text-gray-600">
-              Response At: {item.responseAt}
+              Response At: {item.timestamp}
             </div>
           </div>
-
-          <button className="mr-100">👁</button>
+  <div className="text-xs text-gray-600">
+             {JSON.stringify(item.metadata)}
+            </div>
+          {/* <button className="mr-100">{item.metadata}</button> */}
         </div>
       ))}
       
