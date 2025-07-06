@@ -6,7 +6,7 @@ const cors = require('cors');
 
 app.use(cors({
     origin: 'http://localhost:5173',
-    credentials: true // Optional: Allows cookies/credentials if needed
+    credentials: true 
 }));
 
 app.use(express.json());
