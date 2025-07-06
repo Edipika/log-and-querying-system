@@ -14,18 +14,17 @@ Follow the steps below to run the project locally.
 git clone https://github.com/Edipika/log-and-querying-system.git
 cd log-and-querying-system  
 ```
+### Running the Backend
+Navigate to backend directory :```cd backend``` 
+Install dependencies:```npm install```
+Start the backend server:```node index.js```
+the backend runs on ```http://localhost:5000```
 
 ### Running the Frontend
 Navigate to the frontend directory: ```cd frontend```
 Install dependencies : ```npm install```
 Start the development server: ```npm run dev```
 The frontend should now be running on ``` http://localhost:5173```
-
-### Running the Backend
-Navigate to backend directory :```cd backend``` 
-Install dependencies:```npm install```
-Start the backend server:```node index.js```
-the backend runs on ```http://localhost:5000```
 
 
 ### Frontend Structure & Code Organization
